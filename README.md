@@ -2,7 +2,7 @@
 How to use cloudtrail to pick up definite event history
 
 
-Run aws cli with this - https://www.intelligentdiscovery.io/tools/cloudtrailevents
+Run json with cloudwatch or eventbridge with this - https://www.intelligentdiscovery.io/tools/cloudtrailevents
 
 Resource - https://www.gorillastack.com/blog/real-time-events/cloudtrail-event-names/
 
