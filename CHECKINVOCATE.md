@@ -1,3 +1,4 @@
+
 ### Check metric for invocation aws cli
 period 60 = 1 min
 ```bash
@@ -9,6 +10,12 @@ cat file | grep -E '(^|\s)tinyllama-1-1b-intermediate-step-1431k--24-10-28-08-41
 cat file | grep -E 'tinyllama-1-1b-intermediate-step-1431k--24-10-28-08-41-51-456($|\s)'
 ```
 ### How to trace endpoint via cloudtrail
+Raw data
+```bash
+aws cloudtrail lookup-events   --lookup-attributes AttributeKey=EventName,AttributeValue=DescribeEndpoint   --start-time 2024-10-11T17:03:10+05:30   --end-time 2024-10-18T17:03:10+05:30   | jq '.Events[] | select(.CloudTrailEvent | contains("tinyllama-1-1b-intermediate-step-1431k--24-10-28-08-41-51-456"))'
+```
+
+Organize table
 ```bash
 aws cloudtrail lookup-events --lookup-attributes AttributeKey=EventName,AttributeValue=DeleteEndpoint | jq -r '.Events[] | [
     (.CloudTrailEvent | fromjson | .userIdentity.sessionContext.sessionIssuer.userName),
