@@ -1,4 +1,9 @@
-## Match exact words
+### Check metric for invocation aws cli
+period 60 = 1 min
+```bash
+aws cloudwatch get-metric-statistics   --namespace AWS/SageMaker   --metric-name Invocations   --dimensions Name=EndpointName,Value=tinyllama-1-1b-intermediate-step-1431k--24-10-28-08-41-51-456 Name=VariantName,Value=AllTraffic Name=EndpointConfigName,Value=tinyllama-1-1b-intermediate-step-1431k--24-10-28-08-41-51-456   --start-time 2024-10-22T00:00:00Z   --end-time 2024-10-23T00:00:00Z   --period 60   --statistics Sum
+```
+### Match exact words
 ```bash
 cat file | grep -E '(^|\s)tinyllama-1-1b-intermediate-step-1431k--24-10-28-08-41-51-456($|\s)'
 cat file | grep -E 'tinyllama-1-1b-intermediate-step-1431k--24-10-28-08-41-51-456($|\s)'
