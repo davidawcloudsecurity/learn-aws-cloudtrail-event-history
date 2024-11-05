@@ -1,4 +1,34 @@
-
+### Check date for endpoint
+Raw
+```bash
+aws cloudtrail lookup-events --lookup-attributes AttributeKey=EventName,AttributeValue=DeleteEndpoint | jq -r '.Events[]'
+```
+Specific variable
+```bash
+aws cloudtrail lookup-events --lookup-attributes AttributeKey=EventName,AttributeValue=CreateEndpoint | \
+jq -r '.Events[0].CloudTrailEvent | fromjson | .userIdentity.sessionContext.attributes.creationDate'
+```
+Organized table
+```bash
+aws cloudtrail lookup-events --lookup-attributes AttributeKey=EventName,AttributeValue=CreateEndpoint | \
+jq -r '.Events[] | [
+    (.CloudTrailEvent | fromjson | .userIdentity.sessionContext.sessionIssuer.userName),
+    (.CloudTrailEvent | fromjson | .userIdentity.sessionContext.attributes.creationDate),
+    (.CloudTrailEvent | fromjson | .sourceIPAddress),
+    (.CloudTrailEvent | fromjson | .requestParameters.endpointName),
+    (.CloudTrailEvent | fromjson | .requestParameters.endpointConfigName)
+] | @tsv' | column -t -s $'\t' -N "Username,CreationDate,SourceIPAddress,EndpointName,EndpointConfig"
+```
+Specific name
+```bash
+aws cloudtrail lookup-events --lookup-attributes AttributeKey=EventName,AttributeValue=DeleteEndpoint | jq -r '.Events[] | [
+    (.CloudTrailEvent | fromjson | .userIdentity.sessionContext.sessionIssuer.userName),
+    (.CloudTrailEvent | fromjson | .userIdentity.sessionContext.attributes.creationDate),
+    (.CloudTrailEvent | fromjson | .sourceIPAddress),
+    (.CloudTrailEvent | fromjson | .requestParameters.endpointName),
+    (.CloudTrailEvent | fromjson | .requestParameters.endpointConfigName)
+] | @tsv' | column -t -s $'\t' -N "Username,CreationDate,SourceIPAddress,EndpointName,EndpointConfig" | grep -E 'jumpstart-dft-llama-3-1-405b-instruct-fp8-10($|\s)'
+```
 ### Check metric for invocation aws cli
 period 60 = 1 min
 ```bash
