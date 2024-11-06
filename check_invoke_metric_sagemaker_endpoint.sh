@@ -30,7 +30,7 @@ while [ "$CURRENT_TIMESTAMP" -le "$END_TIMESTAMP" ]; do
                      Name=VariantName,Value=AllTraffic \
         --start-time "$START_TIME" \
         --end-time "$END_TIME" \
-        --period 86400 \
+        --period 3600 \
         --statistics Sum
 
     # Move to the next day (increment by 86400 seconds which is 1 day)
