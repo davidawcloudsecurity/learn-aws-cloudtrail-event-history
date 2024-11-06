@@ -28,10 +28,9 @@ while [ "$CURRENT_TIMESTAMP" -le "$END_TIMESTAMP" ]; do
         --metric-name Invocations \
         --dimensions Name=EndpointName,Value="$ENDPOINT_NAME" \
                      Name=VariantName,Value=AllTraffic \
-                     Name=EndpointConfigName,Value="$ENDPOINT_NAME" \
         --start-time "$START_TIME" \
         --end-time "$END_TIME" \
-        --period 60 \
+        --period 86400 \
         --statistics Sum
 
     # Move to the next day (increment by 86400 seconds which is 1 day)
