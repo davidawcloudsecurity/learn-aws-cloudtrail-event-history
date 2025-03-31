@@ -1,6 +1,18 @@
 # learn-aws-cloudtrail-event-history
 How to use cloudtrail to pick up definite event history
-
+```
+aws cloudtrail lookup-events \
+  --lookup-attributes AttributeKey=EventName,AttributeValue=YourEventName \
+  --start-time "YYYY-MM-DDTHH:MM:SSZ" \
+  --end-time "YYYY-MM-DDTHH:MM:SSZ"
+```
+Example
+```
+aws cloudtrail lookup-events \
+  --lookup-attributes AttributeKey=EventName,AttributeValue=DeleteVolume \
+  --start-time "2023-01-01T13:00Z" \
+  --end-time "2023-03-01T14:00Z"
+```
 
 Run json with cloudwatch or eventbridge with this - https://www.intelligentdiscovery.io/tools/cloudtrailevents
 
